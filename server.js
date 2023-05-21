@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const port = 3000
+const PORT = 3000
 
 const data= require("./movie data/data.json")
 
@@ -43,8 +43,8 @@ function Movie(title,poster_path,overview){
 
     
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
   });
 
 
