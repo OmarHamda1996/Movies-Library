@@ -24,8 +24,7 @@ function Movie(title,poster_path,overview){
   });
   
 
-  app.use("*", handleNtFoundError)
-  app.use("*", handleServerError)
+  
   
   app.use((req, res, next) => {
     res.status(404).json({
