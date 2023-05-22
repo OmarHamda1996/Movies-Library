@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-
+const { Pool } = require('pg');
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +9,16 @@ const apiKey = '4b6ae1c38276f2d6a391a4f6a5282249';
 const apiUrl = 'https://api.themoviedb.org/3';
 
 app.use(cors());
+
+app.use(express.json());
+const pool = new Pool({
+  user: 'omar',
+  host: 'Hamada', 
+  database: 'movieLibDB', 
+  password: '0000', 
+  port: 5432, 
+});
+
 
 function Movie(id, title, release_date, poster_path, overview) {
   this.id = id;
@@ -114,6 +124,48 @@ app.get('/languages', async (req, res) => {
   }
 });
 
+
+app.post('/addMovie', async (req, res) => {
+  try {
+    const { id, title, release_date, poster_path, overview } = req.body;
+
+    const insertQuery = `
+      INSERT INTO movies (id, title, release_date, poster_path, overview)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *;
+    `;
+
+    const values = [id, title, release_date, poster_path, overview];
+
+    const result = await pool.query(insertQuery, values);
+    const savedMovie = result.rows[0];
+
+    res.json(savedMovie);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({
+      status: 500,
+      responseText: 'Sorry, something went wrong'
+    });
+  }
+});
+
+app.get('/getMovies', async (req, res) => {
+  try {
+    const selectQuery = 'SELECT * FROM movies;';
+    const result = await pool.query(selectQuery);
+    const movies = result.rows;
+
+    res.json(movies);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({
+      status: 500,
+      responseText: 'Sorry, something went wrong'
+    });
+  }
+});
+
   
   app.use((req, res, next) => {
     res.status(404).json({
@@ -121,13 +173,7 @@ app.get('/languages', async (req, res) => {
       responseText: 'Page not found'
     });
   });
-  app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
-      status: 500,
-      responseText: 'Sorry, something went wrong'
-    });
-  });
+  
 
     
 

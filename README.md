@@ -1,36 +1,42 @@
-# MovieLibrary - V1
+# MovieLibrary
 
-**OmarHamada**
+OmarHamada
 
-## WRRC
+## Version I
+
+### WRRC
+
 ![Alt text](WRRC.jpg)
 
-## Overview
-this is a simple web app for movies 
+### Overview
 
-## Getting Started
+this is a simple web app for movies
 
-- install dependencies using "npm install"
+### Getting Started
 
-- to start the server npm start
+- Installing dependencies using "npm install"
 
-- using any web browser go to http://localhost:3000/
+- Starting the server : "npm start"
 
-## Project Features
+- Using any web browser go to get access to the local host : <http://localhost:3000/>
 
-- error handler (404,500)
+### Project Features
 
-- returning a movie detalis in the home page
+- Error handler (404,500)
 
+- Returning a movie detalis in the home page
 
-# MovieLibrary - V2
+-------------------------------
 
-## WRRC 2 
+## Version II
+
+### WRRC 2
+
 ![Alt text](WRRC%202%20API.jpg)
 
-## Overall 
+### Overall 2
 
-- installed necessary dependencies: express, axios, cors.
+- Installed necessary dependencies: express, axios, cors.
 - Created a Movie constructor function to structure movie data.
 - Implemented the following routes:
  trending movies data from The Movie DB API and returns a JSON response with movie information.
@@ -38,3 +44,17 @@ this is a simple web app for movies
  top-rated: top-rated TV shows data from The Movie DB API and returns a JSON response with TV show information.
  languages: available languages data from The Movie DB API and returns a JSON response with language information.
 
+-------------------------------
+
+## Version 3
+
+### WRRC 3
+
+![Alt text](WRRC%203%20Database.jpg)
+
+### Overall 3
+
+- Installed necessary dependency : pg.
+- Costomized PSQL informations.
+- Configured the database connection using the Pool object.
+- Edited the README.md file (Capitilization and some English errors).
