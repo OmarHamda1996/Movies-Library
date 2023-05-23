@@ -28,7 +28,16 @@ function Movie(id, title, release_date, poster_path, overview) {
   this.overview = overview;
 }
 
-app.get('/', async (req, res) => {
+app.get('/', movieData )
+  function movieData(req,res){
+      let result=[];
+      const newMovie= new Movie(data.title,data.poster_path,data.overview)
+      result.push(newMovie)
+      res.json(result);
+  }
+
+
+app.get('/trending', async (req, res) => {
   try {
     const url = `${apiUrl}/trending/all/week?api_key=${apiKey}&language=en-US`;
     const response = await axios.get(url);
@@ -127,15 +136,15 @@ app.get('/languages', async (req, res) => {
 
 app.post('/addMovie', async (req, res) => {
   try {
-    const { id, title, release_date, poster_path, overview } = req.body;
+    const { id, title, release_date, poster_path, overview, comments } = req.body;
 
     const insertQuery = `
-      INSERT INTO movies (id, title, release_date, poster_path, overview)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO movies (id, title, release_date, poster_path, overview, comments)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
 
-    const values = [id, title, release_date, poster_path, overview];
+    const values = [id, title, release_date, poster_path, overview, comments];
 
     const result = await pool.query(insertQuery, values);
     const savedMovie = result.rows[0];
