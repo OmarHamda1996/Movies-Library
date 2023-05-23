@@ -18,7 +18,16 @@ function Movie(id, title, release_date, poster_path, overview) {
   this.overview = overview;
 }
 
-app.get('/', async (req, res) => {
+app.get('/', movieData )
+  function movieData(req,res){
+      let result=[];
+      const newMovie= new Movie(data.title,data.poster_path,data.overview)
+      result.push(newMovie)
+      res.json(result);
+  }
+  
+
+app.get('/trending', async (req, res) => {
   try {
     const url = `${apiUrl}/trending/all/week?api_key=${apiKey}&language=en-US`;
     const response = await axios.get(url);
