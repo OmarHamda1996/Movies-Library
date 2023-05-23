@@ -59,7 +59,6 @@ this is a simple web app for movies
 - Configured the database connection using the Pool object.
 - Edited the README.md file (Capitilization and some English errors).
 
-
 -------------------------------
 
 ## Version 4
@@ -68,8 +67,10 @@ this is a simple web app for movies
 
 ![Alt text](WRRC%204%20Database%20.jpg)
 
-### Overall 3
+### Overall 4
 
 -Added a PUT endpoint to handle the update request.
 -Added a DELETE endpoint to handle the delete request.
 -Added a GET endpoint to retrieve a movie by its ID.
+
+Fixing lab14
