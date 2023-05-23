@@ -28,13 +28,19 @@ function Movie(id, title, release_date, poster_path, overview) {
   this.overview = overview;
 }
 
-app.get('/', movieData )
-  function movieData(req,res){
-      let result=[];
-      const newMovie= new Movie(data.title,data.poster_path,data.overview)
-      result.push(newMovie)
-      res.json(result);
-  }
+app.get('/', movieData);
+
+function movieData(req, res) {
+  const data = {
+    title: 'Your Movie Title',
+    poster_path: 'path/to/poster',
+    overview: 'Movie overview',
+  };
+
+  const newMovie = new Movie(data.title, data.poster_path, data.overview);
+  const result = [newMovie];
+  res.json(result);
+}
   
 
 app.get('/trending', async (req, res) => {
