@@ -166,6 +166,94 @@ app.get('/getMovies', async (req, res) => {
   }
 });
 
+
+
+
+app.put('/update/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { comments } = req.body;
+
+    const updateQuery = `
+      UPDATE movies
+      SET comments = $1
+      WHERE id = $2
+      RETURNING *;
+    `;
+
+    const values = [comments, id];
+
+    const result = await pool.query(updateQuery, values);
+    const updatedMovie = result.rows[0];
+
+    res.json(updatedMovie);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({
+      status: 500,
+      responseText: 'Sorry, something went wrong'
+    });
+  }
+});
+
+
+
+
+app.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteQuery = `
+      DELETE FROM movies
+      WHERE id = $1;
+    `;
+
+    const values = [id];
+
+    await pool.query(deleteQuery, values);
+
+    res.json({ message: 'Movie deleted successfully' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({
+      status: 500,
+      responseText: 'Sorry, something went wrong'
+    });
+  }
+});
+
+
+
+
+app.get('/getMovie/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const selectQuery = 'SELECT * FROM movies WHERE id = $1;';
+    const values = [id];
+
+    const result = await pool.query(selectQuery, values);
+    const movie = result.rows[0];
+
+    if (movie) {
+      res.json(movie);
+    } else {
+      res.status(404).json({
+        status: 404,
+        responseText: 'Movie not found'
+      });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({
+      status: 500,
+      responseText: 'Sorry, something went wrong'
+    });
+  }
+});
+
+
+
   
   app.use((req, res, next) => {
     res.status(404).json({
