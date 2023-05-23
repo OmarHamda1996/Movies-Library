@@ -136,15 +136,15 @@ app.get('/languages', async (req, res) => {
 
 app.post('/addMovie', async (req, res) => {
   try {
-    const { id, title, release_date, poster_path, overview } = req.body;
+    const { id, title, release_date, poster_path, overview, comments } = req.body;
 
     const insertQuery = `
-      INSERT INTO movies (id, title, release_date, poster_path, overview)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO movies (id, title, release_date, poster_path, overview, comments)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
 
-    const values = [id, title, release_date, poster_path, overview];
+    const values = [id, title, release_date, poster_path, overview, comments];
 
     const result = await pool.query(insertQuery, values);
     const savedMovie = result.rows[0];
